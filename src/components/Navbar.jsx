@@ -29,7 +29,7 @@ const Navbar = () => {
     <>
       <div className="flex justify-between items-center px-4 md:px-20 lg:px-36 top-0 relative">
         {/* LOGO */}
-        <div className="select-none text-3xl md:text-5xl font-bold py-4">
+        <div className="select-none text-3xl md:text-5xl font-semibold py-4">
           port<span className="text-rose-500">folio</span>
         </div>
         {/* NavLinks */}
