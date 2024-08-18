@@ -27,10 +27,10 @@ const Navbar = () => {
   ];
   return (
     <>
-      <div className="flex justify-between items-center px-4 md:px-20 lg:px-36 top-0">
+      <div className="flex justify-between items-center px-4 md:px-20 lg:px-36 top-0 relative">
         {/* LOGO */}
-        <div className="select-none text-5xl font-bold py-4">
-          port<span className="text-rose-600">folio</span>
+        <div className="select-none text-3xl md:text-5xl font-bold py-4">
+          port<span className="text-rose-500">folio</span>
         </div>
         {/* NavLinks */}
         {/* For Big Screen */}
@@ -45,7 +45,8 @@ const Navbar = () => {
             <div key={index} className="w-fit">
               <a
                 href={item.link}
-                className="cursor-pointer hover:text-rose-600 group text-lg"
+                className="cursor-pointer hover:text-rose-500 group text-lg"
+                onClick={() => setToggleMenu(false)}
               >
                 {item.name}
                 <span className="block w-0 transition-all duration-500 delay-100 h-0.5 bg-rose-600 group-hover:w-full"></span>
@@ -56,23 +57,25 @@ const Navbar = () => {
 
         {/* Toogle button */}
         <div
-          className="md:hidden flex flex-col justify-center items-center"
+          className={`menu flex flex-col gap-[4.5px] md:hidden ${
+            toggleMenu ? "close-btn fixed top-6 right-4" : ""
+          }`}
           onClick={() => setToggleMenu(!toggleMenu)}
         >
           <div
-            className={`${
-              toggleMenu ? "rotate-45 translate-y-[3.5px]" : ""
-            } w-5 bg-black h-[3px] rounded-lg m-[2px] transition ease transform duration-300`}
+            className={`w-6 h-1 bg-rose-500 rounded-md ease-in-out duration-300 ${
+              toggleMenu ? "rotate-45 origin-left" : ""
+            }`}
           ></div>
           <div
-            className={`${
-              toggleMenu ? "hidden" : "block"
-            } w-5 bg-black h-[3px] rounded-lg m-[2px] transition ease transform duration-300`}
+            className={`w-6 h-1 bg-rose-500 rounded-md ease-in-out duration-300 ${
+              toggleMenu ? "opacity-0" : ""
+            }`}
           ></div>
           <div
-            className={`${
-              toggleMenu ? "-rotate-45 -translate-y-[3.5px]" : ""
-            } w-5 bg-black h-[3px] rounded-lg m-[2px] transition ease transform duration-300`}
+            className={`w-6 h-1 bg-rose-500 rounded-md ease-in-out duration-300 ${
+              toggleMenu ? "-rotate-45 origin-left" : ""
+            }`}
           ></div>
         </div>
       </div>
