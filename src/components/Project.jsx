@@ -4,17 +4,17 @@ const Project = () => {
   const projects = [
     {
       name: "Amazon Clone",
-      image: "/amazonclone.png",
+      image: "amazonclone.png",
       link: "https://amazonclone12x.netlify.app/",
     },
     {
       name: "Form Validation",
-      image: "/formvalidation.jpg",
+      image: "formvalidation.jpg",
       link: "https://formvalidationx2.netlify.app/",
     },
     {
       name: "Text to Speech converter",
-      image: "/text-to-speech.jpeg",
+      image: "text-to-speech.jpeg",
       link: "https://text-to-speech-converterx2.netlify.app/",
     },
   ];

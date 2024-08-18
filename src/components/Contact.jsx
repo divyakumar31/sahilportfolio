@@ -12,10 +12,8 @@ const Contact = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-
     const scriptURL =
       "https://script.google.com/macros/s/AKfycbwY-8I1dzEPhPKOTK192ARvq5hcbXjCK8MgOTclkg0jtlWTHDeVxbIXiLnXISTSHNbrsQ/exec";
 

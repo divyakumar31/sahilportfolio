@@ -35,7 +35,7 @@ const About = () => {
     >
       <div className="flex gap-4 flex-col sm:flex-row">
         <div className="sm:w-1/3">
-          <img src="/user.png" alt="User Image" className="rounded-lg" />
+          <img src="user.png" alt="User Image" className="rounded-lg" />
         </div>
         <div className="sm:w-2/3 sm:px-4 space-y-4">
           <div className="text-3xl md:text-5xl font-semibold">About Me</div>
