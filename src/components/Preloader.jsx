@@ -64,7 +64,7 @@ const Preloader = () => {
         <h1 className="mt-5 text-5xl font-semibold tracking-[-0.06em] sm:text-6xl">
           Sahil
           <span className="text-rose-500">.</span>
-          <span className="text-white/50">dev</span>
+          <span className="mt-5 text-5xl font-semibold tracking-[-0.06em] sm:text-6xl">dev</span>
         </h1>
 
         {/* Name */}
