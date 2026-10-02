@@ -60,7 +60,7 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="relative overflow-hidden bg-[#111114] px-6 py-28 sm:px-10 lg:px-16"
+      className="relative overflow-hidden bg-[##0b0b0b] px-6 py-28 sm:px-10 lg:px-16"
     >
       <div className="mx-auto max-w-7xl">
         {/* Header */}
