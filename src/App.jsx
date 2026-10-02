@@ -7,6 +7,7 @@ import About from "./components/About";
 import Services from "./components/Services";
 import Project from "./components/Project";
 import Contact from "./components/Contact";
+import ScrollDirectionButton from "./components/ScrollDirectionButton";
 import useReveal from "./hooks/useReveal";
 
 const App = () => {
@@ -15,22 +16,18 @@ const App = () => {
   return (
     <>
       <Preloader />
-
       <CustomCursor />
-
       <Navbar />
 
       <main>
         <HeroSection />
-
         <About />
-
         <Services />
-
         <Project />
-
         <Contact />
       </main>
+
+      <ScrollDirectionButton />
     </>
   );
 };

@@ -371,3 +371,32 @@ textarea:focus-visible {
 section[id] {
   scroll-margin-top: 85px;
 }
+
+/* ================================
+   Technology Marquee
+================================ */
+
+.skill-marquee-track {
+  animation: skillMarquee 28s linear infinite;
+  will-change: transform;
+}
+
+.skill-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes skillMarquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 640px) {
+  .skill-marquee-track {
+    animation-duration: 22s;
+  }
+}

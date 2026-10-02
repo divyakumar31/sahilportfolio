@@ -17,250 +17,249 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+ const handleSubmit = (e) => {
+  e.preventDefault();
 
-    setSending(true);
-    setSubmitted("");
+  setSending(true);
+  setSubmitted("");
 
-    const scriptURL =
-      "https://script.google.com/macros/s/AKfycbwY-8I1dzEPhPKOTK192ARvq5hcbXjCK8MgOTclkg0jtlWTHDeVxbIXiLnXISTSHNbrsQ/exec";
+  const scriptURL =
+      "https://script.google.com/macros/s/AKfycbxl0DMREDZJPkPvlXEn2s9qRIZ2ORldQx-F0OIwOZy-XhT5uIyo-weXDc3vs4QTGWfKeA/exec";
 
-    fetch(scriptURL, {
-      method: "POST",
-      body: new URLSearchParams(formData),
-    })
-      .then(() => {
-        setSubmitted("Message sent successfully.");
+  fetch(scriptURL, {
+    method: "POST",
+    body: new URLSearchParams(formData),
+  })
+    .then(() => {
+      setSubmitted("success");
 
-        setFormData({
-          name: "",
-          email: "",
-          message: "",
-        });
-      })
-      .catch((error) => {
-        console.error("Error!", error.message);
-        setSubmitted("Something went wrong. Please try again.");
-      })
-      .finally(() => {
-        setSending(false);
+      setFormData({
+        name: "",
+        email: "",
+        message: "",
       });
-  };
+
+      setTimeout(() => {
+        setSubmitted("");
+      }, 4000);
+    })
+    .catch((error) => {
+      console.error("Error!", error.message);
+
+      setSubmitted("error");
+
+      setTimeout(() => {
+        setSubmitted("");
+      }, 4000);
+    })
+    .finally(() => {
+      setSending(false);
+    });
+};
 
   return (
     <section
-  id="contact"
-  className="relative overflow-hidden bg-[#0b0b0b] px-5 pt-12 text-white sm:px-10 sm:pt-16 lg:px-20 xl:px-28"
->
-      {/* Glow */}
-      <div className="pointer-events-none absolute bottom-[-200px] right-[-250px] h-[600px] w-[600px] rounded-full bg-rose-500/10 blur-[160px]" />
-
-      <div className="relative mx-auto max-w-7xl">
+      id="contact"
+      className="relative overflow-hidden bg-[#111114] px-6 py-28 sm:px-10 lg:px-16"
+    >
+      <div className="mx-auto max-w-7xl">
         {/* Header */}
-        <div className="reveal border-t border-white/10 pt-10">
-          <p className="mb-8 text-xs uppercase tracking-[0.35em] text-rose-500">
-            Have a project in mind? / 03
+        <div className="mb-16 border-b border-white/10 pb-6">
+          <p className="mb-3 text-xs font-medium uppercase tracking-[0.3em] text-rose-400">
+            03 — Contact
           </p>
 
-          <h2 className="text-[16vw] font-semibold leading-[0.8] tracking-[-0.06em] sm:text-[13vw] lg:text-[10vw]">
-            LET'S
-            <br />
-            <span className="text-rose-500">TALK.</span>
+          <h2 className="max-w-4xl text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-7xl">
+            Let's build something
+            <span className="block text-white/35">great together.</span>
           </h2>
         </div>
 
-        {/* Content */}
-        <div className="grid gap-14 pb-24 pt-24 lg:grid-cols-12 lg:gap-20">
-          {/* Left */}
-          <div className="reveal-left lg:col-span-5">
-            <p className="max-w-lg text-xl leading-relaxed text-white/70 sm:text-2xl">
-              Have an idea, website or software project you'd like to build?
-              Let's turn it into something useful and memorable.
-            </p>
+        <div className="grid gap-16 lg:grid-cols-12 lg:gap-20">
+          {/* Contact Info */}
+          <div className="lg:col-span-5">
+            <div className="reveal-left">
+              <p className="max-w-md text-lg leading-8 text-white/60">
+                Have an idea, project or business solution in mind? Let's turn
+                it into a digital product that actually makes an impact.
+              </p>
 
-            {/* Availability */}
-            <div className="mt-10 flex items-center gap-3">
-              <span className="relative flex h-3 w-3">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
-
-                <span className="relative inline-flex h-3 w-3 rounded-full bg-green-500" />
-              </span>
-
-              <span className="text-sm text-white/40">
-                Available for new projects
-              </span>
-            </div>
-
-            {/* Direct contact */}
-            <div className="mt-12 space-y-7">
+              {/* Email */}
               <a
                 href="mailto:sahildarji1610@gmail.com"
-                className="group block"
+                className="group mt-10 block w-fit"
               >
-                <p className="mb-2 text-xs uppercase tracking-[0.25em] text-white/25">
+                <p className="mb-3 text-xs uppercase tracking-[0.2em] text-white/40">
                   Email
                 </p>
 
-                <div className="flex items-center gap-3 text-lg transition-colors group-hover:text-rose-500 sm:text-xl">
-                  sahildarji1610@gmail.com
-                  <span className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1">
+                <div className="flex items-center gap-3 text-base font-medium text-white transition-colors duration-300 group-hover:text-rose-400">
+                  {/* Email Icon */}
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/[0.03] transition-all duration-300 group-hover:border-rose-400/40 group-hover:bg-rose-400/10">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4"
+                    >
+                      <path
+                        d="M4 5H20C20.55 5 21 5.45 21 6V18C21 18.55 20.55 19 20 19H4C3.45 19 3 18.55 3 18V6C3 5.45 3.45 5 4 5Z"
+                        stroke="currentColor"
+                        strokeWidth="1.7"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+
+                      <path
+                        d="M3 6L12 13L21 6"
+                        stroke="currentColor"
+                        strokeWidth="1.7"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
+
+                  <span>sahildarji1610@gmail.com</span>
+
+                  <span className="text-white/30 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-rose-400">
                     ↗
                   </span>
                 </div>
               </a>
 
-              <a
-                href="tel:+919054443318"
-                className="group block"
-              >
-                <p className="mb-2 text-xs uppercase tracking-[0.25em] text-white/25">
-                  Phone
-                </p>
+              {/* Availability */}
+              <div className="mt-12 flex items-center gap-3">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-rose-400 opacity-60" />
+                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-rose-400" />
+                </span>
 
-                <div className="flex items-center gap-3 text-lg transition-colors group-hover:text-rose-500 sm:text-xl">
-                  +91 90544 43318
-                  <span className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1">
-                    ↗
-                  </span>
-                </div>
-              </a>
-            </div>
-
-            {/* Actions */}
-            <div className="mt-12 flex flex-wrap gap-3">
-              <a
-                href="/sahilresume.pdf"
-                download
-                className="rounded-full border border-white/10 px-5 py-3 text-sm text-white/70 transition-all duration-300 hover:border-rose-500 hover:text-rose-500"
-              >
-                Download CV ↓
-              </a>
-
-              <a
-                href="#project"
-                className="rounded-full border border-white/10 px-5 py-3 text-sm text-white/70 transition-all duration-300 hover:border-rose-500 hover:text-rose-500"
-              >
-                View work ↗
-              </a>
+                <span className="text-sm text-white/50">
+                  Available for new projects
+                </span>
+              </div>
             </div>
           </div>
 
-          {/* Form */}
-          <div className="reveal-right lg:col-span-7">
+          {/* Contact Form */}
+          <div className="lg:col-span-7">
             <form
               onSubmit={handleSubmit}
-              className="rounded-3xl border border-white/10 bg-white/[0.02] p-6 sm:p-8 lg:p-10"
+              className="reveal-right rounded-2xl border border-white/10 bg-white/[0.025] p-6 sm:p-8"
             >
               {/* Name */}
-              <div className="border-b border-white/10 pb-4">
+              <div className="mb-7">
                 <label
                   htmlFor="name"
-                  className="mb-3 block text-xs uppercase tracking-[0.25em] text-white/25"
+                  className="mb-3 block text-xs font-medium uppercase tracking-[0.18em] text-white/40"
                 >
-                  Your name
+                  Your Name
                 </label>
 
                 <input
                   id="name"
-                  name="name"
                   type="text"
+                  name="name"
                   value={formData.name}
                   onChange={handleInput}
                   placeholder="Enter your name"
                   required
-                  className="w-full bg-transparent text-lg outline-none placeholder:text-white/15"
+                  className="w-full border-b border-white/15 bg-transparent px-0 py-3 text-base text-white outline-none placeholder:text-white/25 transition-colors duration-300 focus:border-rose-400"
                 />
               </div>
 
               {/* Email */}
-              <div className="mt-8 border-b border-white/10 pb-4">
+              <div className="mb-7">
                 <label
                   htmlFor="email"
-                  className="mb-3 block text-xs uppercase tracking-[0.25em] text-white/25"
+                  className="mb-3 block text-xs font-medium uppercase tracking-[0.18em] text-white/40"
                 >
-                  Email address
+                  Email Address
                 </label>
 
                 <input
                   id="email"
-                  name="email"
                   type="email"
+                  name="email"
                   value={formData.email}
                   onChange={handleInput}
                   placeholder="you@example.com"
                   required
-                  className="w-full bg-transparent text-lg outline-none placeholder:text-white/15"
+                  className="w-full border-b border-white/15 bg-transparent px-0 py-3 text-base text-white outline-none placeholder:text-white/25 transition-colors duration-300 focus:border-rose-400"
                 />
               </div>
 
               {/* Message */}
-              <div className="mt-8 border-b border-white/10 pb-4">
+              <div className="mb-8">
                 <label
                   htmlFor="message"
-                  className="mb-3 block text-xs uppercase tracking-[0.25em] text-white/25"
+                  className="mb-3 block text-xs font-medium uppercase tracking-[0.18em] text-white/40"
                 >
-                  Project details
+                  Message
                 </label>
 
                 <textarea
                   id="message"
                   name="message"
-                  rows="5"
                   value={formData.message}
                   onChange={handleInput}
                   placeholder="Tell me about your project..."
                   required
-                  className="w-full resize-none bg-transparent text-lg outline-none placeholder:text-white/15"
+                  rows="5"
+                  className="w-full resize-none border-b border-white/15 bg-transparent px-0 py-3 text-base text-white outline-none placeholder:text-white/25 transition-colors duration-300 focus:border-rose-400"
                 />
               </div>
 
               {/* Status */}
               {submitted && (
-                <p
-                  className={`mt-6 text-sm ${
-                    submitted.includes("successfully")
-                      ? "text-green-400"
-                      : "text-rose-400"
-                  }`}
-                >
-                  {submitted}
-                </p>
-              )}
+  <div
+    className={`mb-5 flex items-center gap-3 rounded-xl border px-4 py-3 text-sm transition-all duration-300 ${
+      submitted === "success"
+        ? "border-emerald-400/20 bg-emerald-400/10 text-emerald-400"
+        : "border-rose-400/20 bg-rose-400/10 text-rose-400"
+    }`}
+  >
+    <span
+      className={`flex h-6 w-6 items-center justify-center rounded-full border ${
+        submitted === "success"
+          ? "border-emerald-400/40 bg-emerald-400/15"
+          : "border-rose-400/40 bg-rose-400/15"
+      }`}
+    >
+      {submitted === "success" ? "✓" : "!"}
+    </span>
+
+    <span>
+      {submitted === "success"
+        ? "Message sent successfully"
+        : "Something went wrong. Please try again."}
+    </span>
+  </div>
+)}
 
               {/* Submit */}
               <button
                 type="submit"
                 disabled={sending}
-                className="group mt-8 flex items-center gap-5 text-lg font-medium disabled:cursor-not-allowed disabled:opacity-50"
+                className="group inline-flex w-full items-center justify-center gap-3 rounded-full bg-white px-6 py-4 text-sm font-semibold text-black transition-all duration-300 hover:bg-rose-400 disabled:cursor-not-allowed disabled:opacity-50"
               >
-                <span className="flex h-16 w-16 items-center justify-center rounded-full bg-rose-500 text-xl transition-all duration-300 group-hover:rotate-45 group-hover:scale-110">
-                  ↗
-                </span>
+                {sending ? "Sending..." : "Send Message"}
 
-                <span className="transition-colors group-hover:text-rose-500">
-                  {sending ? "Sending..." : "Send Message"}
-                </span>
+                {!sending && (
+                  <span className="transition-transform duration-300 group-hover:translate-x-1">
+                    ↗
+                  </span>
+                )}
               </button>
             </form>
           </div>
         </div>
 
         {/* Footer */}
-        <footer className="border-t border-white/10 py-8">
-          <div className="flex flex-col justify-between gap-5 text-sm text-white/30 sm:flex-row sm:items-center">
-            <p>© {new Date().getFullYear()} Sahil Darji</p>
-
-            <p>Designed & Developed by Sahil</p>
-
-            <a
-              href="#home"
-              className="transition-colors hover:text-rose-500"
-            >
-              Back to top ↑
-            </a>
-          </div>
-        </footer>
+        <div className="mt-24 flex flex-col justify-between gap-5 border-t border-white/10 pt-7 text-xs text-white/30 sm:flex-row">
+          <p>© {new Date().getFullYear()} Sahil Darji. All rights reserved.</p>
+        </div>
       </div>
     </section>
   );
