@@ -85,15 +85,12 @@ const TechStack = () => {
   return (
     <section
       id="stack"
-      className="relative overflow-hidden bg-[#0b0b0b] px-5 py-24 text-white sm:px-10 sm:py-32 lg:px-16 lg:py-40"
+      className="relative overflow-hidden bg-[#0b0b0b] px-5 py-16 text-white sm:px-10 sm:py-20 lg:px-16 lg:py-24"
     >
       <div className="mx-auto max-w-7xl">
-
         {/* HEADER */}
         <div className="reveal flex flex-col justify-between gap-8 border-b border-white/[0.08] pb-8 lg:flex-row lg:items-end">
-
           <div>
-
             <p className="text-[9px] font-medium uppercase tracking-[0.35em] text-rose-400 sm:text-[10px]">
               02 — Tech Stack
             </p>
@@ -101,19 +98,16 @@ const TechStack = () => {
             <h2 className="mt-3 text-5xl font-semibold tracking-[-0.06em] sm:text-6xl lg:text-8xl">
               Tools<span className="text-rose-500">.</span>
             </h2>
-
           </div>
 
           <p className="max-w-md text-sm leading-6 text-white/35 lg:pb-2">
             The technologies and principles I use to transform ideas into
             reliable, modern digital products.
           </p>
-
         </div>
 
         {/* CATEGORY NAV */}
         <div className="reveal mt-10 flex gap-2 overflow-x-auto border-b border-white/[0.08] pb-3 scrollbar-hide">
-
           {Object.keys(categories).map((category) => (
             <button
               key={category}
@@ -131,34 +125,29 @@ const TechStack = () => {
               {category}
             </button>
           ))}
-
         </div>
 
         {/* TECH CONTENT */}
         <div className="mt-10 grid lg:grid-cols-12 lg:gap-16">
-
           {/* LIST */}
           <div className="lg:col-span-7">
-
             {currentItems.map((tech, index) => {
               const active = activeTech === tech.name;
 
               return (
                 <button
-  key={tech.name}
-  type="button"
-  onMouseEnter={() => setActiveTech(tech.name)}
-  onFocus={() => setActiveTech(tech.name)}
-  onClick={() => setActiveTech(tech.name)}
-  className={`group flex w-full items-center justify-between border-b border-white/[0.08] py-5 text-left opacity-100 transition-all duration-300 sm:py-7 ${
-    active
-      ? "pl-2"
-      : "text-white/30 hover:pl-2 hover:text-white"
-  }`}
->
-
+                  key={tech.name}
+                  type="button"
+                  onMouseEnter={() => setActiveTech(tech.name)}
+                  onFocus={() => setActiveTech(tech.name)}
+                  onClick={() => setActiveTech(tech.name)}
+                  className={`group flex w-full items-center justify-between border-b border-white/[0.08] py-5 text-left opacity-100 transition-all duration-300 sm:py-7 ${
+                    active
+                      ? "pl-2"
+                      : "text-white/30 hover:pl-2 hover:text-white"
+                  }`}
+                >
                   <div className="flex items-center gap-5">
-
                     <span className="text-[9px] tracking-[0.2em] text-white/15">
                       0{index + 1}
                     </span>
@@ -170,7 +159,6 @@ const TechStack = () => {
                     >
                       {tech.name}
                     </span>
-
                   </div>
 
                   <span
@@ -182,32 +170,24 @@ const TechStack = () => {
                   >
                     ↗
                   </span>
-
                 </button>
               );
             })}
-
           </div>
 
           {/* DESCRIPTION */}
           <div className="mt-10 lg:col-span-5 lg:mt-0">
-
             <div className="sticky top-32">
-
               <div className="rounded-[2rem] border border-white/[0.08] bg-white/[0.025] p-7 opacity-100 sm:p-9">
-
                 <div className="flex items-center justify-between">
-
                   <span className="text-[9px] uppercase tracking-[0.3em] text-white/20">
                     Currently exploring
                   </span>
 
                   <span className="h-2 w-2 rounded-full bg-rose-500 shadow-[0_0_18px_rgba(244,63,94,0.7)]" />
-
                 </div>
 
                 <div className="mt-20">
-
                   <p className="text-[10px] uppercase tracking-[0.3em] text-rose-400">
                     {activeCategory}
                   </p>
@@ -224,13 +204,10 @@ const TechStack = () => {
                       )?.description
                     }
                   </p>
-
                 </div>
 
                 <div className="mt-16 border-t border-white/[0.08] pt-5">
-
                   <div className="flex items-center justify-between">
-
                     <span className="text-[8px] uppercase tracking-[0.25em] text-white/20">
                       Approach
                     </span>
@@ -238,24 +215,16 @@ const TechStack = () => {
                     <span className="text-[8px] uppercase tracking-[0.25em] text-white/30">
                       Clean / Scalable / Fast
                     </span>
-
                   </div>
-
                 </div>
-
               </div>
-
             </div>
-
           </div>
-
         </div>
 
         {/* BOTTOM MARQUEE */}
-        <div className="mt-24 overflow-hidden border-y border-white/[0.06] py-5 sm:mt-32">
-
+        <div className="mt-16 overflow-hidden border-y border-white/[0.06] py-5 sm:mt-20">
           <div className="skill-marquee-track flex w-max items-center gap-8 whitespace-nowrap">
-
             {[...Array(2)].flatMap((_, groupIndex) =>
               [
                 "React",
@@ -272,15 +241,13 @@ const TechStack = () => {
                   className="flex items-center gap-8 text-[9px] uppercase tracking-[0.25em] text-white/20"
                 >
                   {item}
+
                   <span className="h-1 w-1 rounded-full bg-rose-500/50" />
                 </span>
               ))
             )}
-
           </div>
-
         </div>
-
       </div>
     </section>
   );

@@ -53,7 +53,7 @@ const Contact = () => {
     <>
       <section
         id="contact"
-        className="relative overflow-hidden bg-[#0b0b0b] px-5 py-24 text-white sm:px-10 sm:py-32 lg:px-16 lg:py-40"
+        className="relative overflow-hidden bg-[#0b0b0b] px-5 py-24 text-white sm:px-10 sm:py-32 lg:px-16 lg:py-24"
       >
         <div className="mx-auto max-w-7xl">
 

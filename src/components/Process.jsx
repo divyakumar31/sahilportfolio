@@ -25,13 +25,11 @@ const Process = () => {
   return (
     <section
       id="process"
-      className="relative overflow-hidden bg-[#0b0b0b] px-5 py-24 text-white sm:px-10 sm:py-32 lg:px-16 lg:py-40"
+      className="relative overflow-hidden bg-[#0b0b0b] px-5 py-16 text-white sm:px-10 sm:py-20 lg:px-16 lg:py-24"
     >
       <div className="mx-auto max-w-7xl">
-
         {/* HEADER */}
-        <div className="reveal mb-14 flex flex-col justify-between gap-8 border-b border-white/[0.08] pb-8 sm:mb-20 lg:flex-row lg:items-end">
-
+        <div className="reveal mb-10 flex flex-col justify-between gap-6 border-b border-white/[0.08] pb-7 sm:mb-12 lg:flex-row lg:items-end">
           <div>
             <p className="text-[9px] font-medium uppercase tracking-[0.35em] text-rose-400 sm:text-[10px]">
               05 — How I Work
@@ -46,24 +44,20 @@ const Process = () => {
             A simple process that keeps ideas clear, development focused and
             the final result purposeful.
           </p>
-
         </div>
 
         {/* PROCESS */}
         <div className="grid border-t border-white/[0.08] lg:grid-cols-4">
-
           {steps.map((step, index) => (
             <div
               key={step.number}
-              className={`process-step reveal group relative py-8 lg:px-7 lg:py-10 ${
+              className={`process-step reveal group relative py-6 lg:px-7 lg:py-8 ${
                 index !== 0
                   ? "border-t border-white/[0.08] lg:border-l lg:border-t-0"
                   : ""
               }`}
             >
-
               <div className="flex items-start justify-between">
-
                 <span className="text-[9px] tracking-[0.25em] text-white/20 transition-colors duration-300 group-hover:text-rose-400">
                   {step.number}
                 </span>
@@ -71,11 +65,9 @@ const Process = () => {
                 <span className="text-lg text-white/10 transition-all duration-500 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-rose-500">
                   ↗
                 </span>
-
               </div>
 
-              <div className="mt-20">
-
+              <div className="mt-14">
                 <h3 className="text-2xl font-medium tracking-[-0.035em] transition-transform duration-500 group-hover:translate-x-1 sm:text-3xl">
                   {step.title}
                   <span className="text-rose-500">.</span>
@@ -84,16 +76,12 @@ const Process = () => {
                 <p className="mt-4 max-w-xs text-sm leading-6 text-white/30 transition-colors duration-300 group-hover:text-white/45">
                   {step.text}
                 </p>
-
               </div>
 
-              <div className="mt-12 h-px w-8 bg-white/10 transition-all duration-500 group-hover:w-16 group-hover:bg-rose-500" />
-
+              <div className="mt-8 h-px w-8 bg-white/10 transition-all duration-500 group-hover:w-16 group-hover:bg-rose-500" />
             </div>
           ))}
-
         </div>
-
       </div>
     </section>
   );
