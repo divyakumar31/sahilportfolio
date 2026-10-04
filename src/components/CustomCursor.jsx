@@ -1,72 +1,127 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const CustomCursor = () => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [hovering, setHovering] = useState(false);
-  const [visible, setVisible] = useState(false);
+  const dotRef = useRef(null);
+  const ringRef = useRef(null);
+
+  const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      setPosition({
-        x: e.clientX,
-        y: e.clientY,
-      });
-
-      setVisible(true);
-
-      const target = e.target;
-
-      if (
-        target.closest(
-          "a, button, input, textarea, select, [role='button']"
-        )
-      ) {
-        setHovering(true);
-      } else {
-        setHovering(false);
-      }
+    const checkDevice = () => {
+      setEnabled(
+        window.matchMedia("(pointer: fine)").matches &&
+          window.innerWidth >= 768
+      );
     };
 
-    const handleMouseLeave = () => {
-      setVisible(false);
-    };
+    checkDevice();
 
-    window.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseleave", handleMouseLeave);
-
-    document.body.style.cursor = "none";
+    window.addEventListener("resize", checkDevice);
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseleave", handleMouseLeave);
-      document.body.style.cursor = "";
+      window.removeEventListener("resize", checkDevice);
     };
   }, []);
 
+  useEffect(() => {
+    if (!enabled) return;
+
+    const dot = dotRef.current;
+    const ring = ringRef.current;
+
+    if (!dot || !ring) return;
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+
+    let ringX = mouseX;
+    let ringY = mouseY;
+
+    let animationFrame;
+
+    const move = (event) => {
+      mouseX = event.clientX;
+      mouseY = event.clientY;
+
+      dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+    };
+
+    const animate = () => {
+      ringX += (mouseX - ringX) * 0.14;
+      ringY += (mouseY - ringY) * 0.14;
+
+      ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
+
+      animationFrame = requestAnimationFrame(animate);
+    };
+
+    const handlePointerOver = (event) => {
+      const target = event.target.closest(
+        "a, button, input, textarea, select, [role='button']"
+      );
+
+      if (target) {
+        document.body.classList.add("cursor-hover");
+      }
+    };
+
+    const handlePointerOut = (event) => {
+      const target = event.target.closest(
+        "a, button, input, textarea, select, [role='button']"
+      );
+
+      if (target) {
+        document.body.classList.remove("cursor-hover");
+      }
+    };
+
+    window.addEventListener("mousemove", move, {
+      passive: true,
+    });
+
+    document.addEventListener(
+      "pointerover",
+      handlePointerOver
+    );
+
+    document.addEventListener(
+      "pointerout",
+      handlePointerOut
+    );
+
+    animationFrame = requestAnimationFrame(animate);
+
+    return () => {
+      window.removeEventListener("mousemove", move);
+
+      document.removeEventListener(
+        "pointerover",
+        handlePointerOver
+      );
+
+      document.removeEventListener(
+        "pointerout",
+        handlePointerOut
+      );
+
+      cancelAnimationFrame(animationFrame);
+
+      document.body.classList.remove("cursor-hover");
+    };
+  }, [enabled]);
+
+  if (!enabled) return null;
+
   return (
     <>
-      {/* Outer Cursor */}
       <div
-        className={`pointer-events-none fixed z-[9999] hidden md:block rounded-full border border-rose-500 transition-all duration-200 ease-out ${
-          hovering ? "h-12 w-12" : "h-8 w-8"
-        }`}
-        style={{
-          left: position.x,
-          top: position.y,
-          transform: "translate(-50%, -50%)",
-          opacity: visible ? 1 : 0,
-        }}
+        ref={dotRef}
+        className="custom-cursor-dot"
       />
 
-      {/* Inner Dot */}
       <div
-        className="pointer-events-none fixed z-[10000] hidden md:block h-2 w-2 rounded-full bg-rose-500"
-        style={{
-          left: position.x,
-          top: position.y,
-          transform: "translate(-50%, -50%)",
-          opacity: visible ? 1 : 0,
-        }}
+        ref={ringRef}
+        className="custom-cursor-ring"
       />
     </>
   );

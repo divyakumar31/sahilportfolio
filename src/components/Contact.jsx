@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -6,329 +6,363 @@ const Contact = () => {
     email: "",
     message: "",
   });
+  const [status, setStatus] = useState("idle");
 
-  const [submitted, setSubmitted] = useState("");
-  const [sending, setSending] = useState(false);
+  const handleChange = (event) => {
+    const { name, value } = event.target;
 
-  const handleInput = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setFormData((previous) => ({
+      ...previous,
+      [name]: value,
+    }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-    setSending(true);
-    setSubmitted("");
+    setStatus("sending");
 
-    const scriptURL =
-      "https://script.google.com/macros/s/AKfycbxl0DMREDZJPkPvlXEn2s9qRIZ2ORldQx-F0OIwOZy-XhT5uIyo-weXDc3vs4QTGWfKeA/exec";
+    try {
+      // KEEP YOUR EXISTING GOOGLE APPS SCRIPT URL HERE
+      const scriptUrl = "https://script.google.com/macros/s/AKfycbxl0DMREDZJPkPvlXEn2s9qRIZ2ORldQx-F0OIwOZy-XhT5uIyo-weXDc3vs4QTGWfKeA/exec";
 
-    fetch(scriptURL, {
-      method: "POST",
-      body: new URLSearchParams(formData),
-    })
-      .then(() => {
-        setSubmitted("success");
-
-        setFormData({
-          name: "",
-          email: "",
-          message: "",
-        });
-
-        setTimeout(() => {
-          setSubmitted("");
-        }, 4000);
-      })
-      .catch((error) => {
-        console.error("Error!", error.message);
-
-        setSubmitted("error");
-
-        setTimeout(() => {
-          setSubmitted("");
-        }, 4000);
-      })
-      .finally(() => {
-        setSending(false);
+      await fetch(scriptUrl, {
+        method: "POST",
+        mode: "no-cors",
+        body: JSON.stringify(formData),
       });
+
+      setStatus("success");
+
+      setFormData({
+        name: "",
+        email: "",
+        message: "",
+      });
+
+      setTimeout(() => {
+        setStatus("idle");
+      }, 4000);
+    } catch (error) {
+      console.error("Contact form error:", error);
+      setStatus("error");
+    }
   };
 
   return (
-    <section
-      id="contact"
-      className="relative overflow-hidden bg-[#0b0b0b] px-6 py-16 sm:px-10 sm:py-16 lg:px-16 lg:py-20"
-    >
-      <div className="mx-auto max-w-7xl">
+    <>
+      <section
+        id="contact"
+        className="relative overflow-hidden bg-[#0b0b0b] px-5 py-24 text-white sm:px-10 sm:py-32 lg:px-16 lg:py-40"
+      >
+        <div className="mx-auto max-w-7xl">
 
-        {/* Header */}
-        <div className="mb-10 border-b border-white/10 pb-5">
-          <p className="mb-3 text-xs font-medium uppercase tracking-[0.3em] text-rose-400">
-            03 — Contact
-          </p>
+          {/* HEADER */}
+          <div className="reveal border-b border-white/[0.08] pb-8">
 
-          <h2 className="max-w-4xl text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-7xl">
-            Let's build something
-            <span className="block text-white/35">
-              great together.
-            </span>
-          </h2>
-        </div>
+            <p className="text-[9px] font-medium uppercase tracking-[0.35em] text-rose-400 sm:text-[10px]">
+              06 — Contact
+            </p>
 
-        {/* Main Content */}
-        <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
+            <h2 className="mt-6 max-w-5xl text-[clamp(3.4rem,8vw,8rem)] font-semibold leading-[0.85] tracking-[-0.075em]">
+              Have an idea?
+              <br />
+              Let's build
+              <br />
+              <span className="text-white/30">
+                something great
+              </span>
+              <span className="text-rose-500">.</span>
+            </h2>
 
-          {/* Contact Information */}
-          <div className="lg:col-span-5">
-            <div className="reveal-left">
+          </div>
 
-              {/* Description */}
-              <p className="max-w-md text-lg leading-8 text-white/60">
-                Have an idea, project or business solution in mind? Let's turn
-                it into a digital product that actually makes an impact.
-              </p>
+          {/* CONTACT CONTENT */}
+          <div className="grid gap-16 pt-14 lg:grid-cols-12 lg:gap-20 lg:pt-20">
 
-              {/* Email / LinkedIn / Instagram */}
-              <div className="mt-8 flex items-center gap-3">
+            {/* LEFT */}
+            <div className="lg:col-span-5">
 
-                {/* Email */}
-                <a
-                  href="mailto:sahildarji1610@gmail.com"
-                  aria-label="Email me"
-                  title="Email me"
-                  className="group flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.02] text-white/50 transition-all duration-300 hover:-translate-y-1 hover:border-rose-400/50 hover:bg-rose-400/10 hover:text-rose-400"
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-[18px] w-[18px]"
+              <div className="reveal-left">
+
+                <p className="max-w-md text-base leading-7 text-white/40 sm:text-lg sm:leading-8">
+                  Whether you have a project in mind, an idea you want to
+                  explore, or simply want to say hello — I'd love to hear from
+                  you.
+                </p>
+
+                <div className="mt-12">
+
+                  <p className="text-[8px] uppercase tracking-[0.3em] text-white/20">
+                    Email
+                  </p>
+
+                  <a
+                    href="mailto:sahildarji1610@gmail.com"
+                    className="animated-link mt-3 inline-block text-base text-white/70 transition-colors hover:text-white sm:text-lg"
                   >
-                    <path
-                      d="M4 5H20C20.55 5 21 5.45 21 6V18C21 18.55 20.55 19 20 19H4C3.45 19 3 18.55 3 18V6C3 5.45 3.45 5 4 5Z"
+                    sahildarji1610@gmail.com
+                  </a>
+
+                </div>
+
+                <div className="mt-10">
+
+                  <p className="text-[8px] uppercase tracking-[0.3em] text-white/20">
+                    Based in
+                  </p>
+
+                  <p className="mt-3 text-base text-white/60">
+                    Ahmedabad, India
+                  </p>
+
+                </div>
+
+                <div className="mt-10 flex items-center gap-3">
+
+                  {/* EMAIL */}
+                  <a
+                    href="mailto:sahildarji1610@gmail.com"
+                    aria-label="Email Sahil"
+                    className="contact-icon"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
                       stroke="currentColor"
-                      strokeWidth="1.7"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
+                      strokeWidth="1.6"
+                      aria-hidden="true"
+                    >
+                      <rect x="3" y="5" width="18" height="14" rx="2" />
+                      <path d="m3 7 9 6 9-6" />
+                    </svg>
 
-                    <path
-                      d="M3 6L12 13L21 6"
+                    <span className="contact-icon-tooltip">
+                      Email
+                    </span>
+                  </a>
+
+                  {/* INSTAGRAM */}
+                  <a
+                    href="https://www.instagram.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram"
+                    className="contact-icon"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
                       stroke="currentColor"
-                      strokeWidth="1.7"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </a>
+                      strokeWidth="1.6"
+                      aria-hidden="true"
+                    >
+                      <rect x="3" y="3" width="18" height="18" rx="5" />
+                      <circle cx="12" cy="12" r="4" />
+                      <circle
+                        cx="17.3"
+                        cy="6.7"
+                        r="0.8"
+                        fill="currentColor"
+                        stroke="none"
+                      />
+                    </svg>
 
-                {/* LinkedIn */}
-                <a
-                  href="https://www.linkedin.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="LinkedIn"
-                  title="LinkedIn"
-                  className="group flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.02] text-white/50 transition-all duration-300 hover:-translate-y-1 hover:border-[#0A66C2]/50 hover:bg-[#0A66C2]/10 hover:text-[#0A66C2]"
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="h-[18px] w-[18px]"
-                    aria-hidden="true"
+                    <span className="contact-icon-tooltip">
+                      Instagram
+                    </span>
+                  </a>
+
+                  {/* LINKEDIN */}
+                  <a
+                    href="https://www.linkedin.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn"
+                    className="contact-icon"
                   >
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V8.997h3.414v1.561h.046c.477-.9 1.637-1.849 3.37-1.849 3.602 0 4.267 2.37 4.267 5.455v6.288ZM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0-4.124ZM3.555 8.997h3.564v11.455H3.555V8.997Z" />
-                  </svg>
-                </a>
-
-                {/* Instagram */}
-                <a
-                  href="https://www.instagram.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Instagram"
-                  title="Instagram"
-                  className="group flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.02] text-white/50 transition-all duration-300 hover:-translate-y-1 hover:border-rose-500/50 hover:bg-rose-500/10 hover:text-rose-400"
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    className="h-[19px] w-[19px]"
-                    aria-hidden="true"
-                  >
-                    <rect
-                      x="3"
-                      y="3"
-                      width="18"
-                      height="18"
-                      rx="5"
-                    />
-
-                    <circle
-                      cx="12"
-                      cy="12"
-                      r="4.2"
-                    />
-
-                    <circle
-                      cx="17.4"
-                      cy="6.6"
-                      r="1"
+                    <svg
+                      viewBox="0 0 24 24"
                       fill="currentColor"
-                      stroke="none"
-                    />
-                  </svg>
-                </a>
+                      aria-hidden="true"
+                    >
+                      <path d="M6.5 8.2H3.2V21h3.3V8.2ZM4.85 3A1.95 1.95 0 1 0 4.85 6.9 1.95 1.95 0 0 0 4.85 3ZM21 13.65c0-3.85-2.05-5.65-4.78-5.65-2.2 0-3.18 1.2-3.73 2.04V8.2H9.2V21h3.29v-6.34c0-1.67.32-3.29 2.39-3.29 2.04 0 2.07 1.92 2.07 3.4V21H20.3l.7-7.35Z" />
+                    </svg>
 
-              </div>
+                    <span className="contact-icon-tooltip">
+                      LinkedIn
+                    </span>
+                  </a>
 
-              {/* Availability */}
-              <div className="mt-7 flex items-center gap-3">
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-rose-400 opacity-60" />
+                </div>
 
-                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-rose-400" />
-                </span>
-
-                <span className="text-sm text-white/50">
-                  Available for new projects
-                </span>
               </div>
 
             </div>
-          </div>
 
-          {/* Contact Form */}
-          <div className="lg:col-span-7">
-            <form
-              onSubmit={handleSubmit}
-              className="reveal-right rounded-2xl border border-white/10 bg-white/[0.025] p-6 sm:p-8"
-            >
+            {/* FORM */}
+            <div className="lg:col-span-7">
 
-              {/* Name */}
-              <div className="mb-7">
-                <label
-                  htmlFor="name"
-                  className="mb-3 block text-xs font-medium uppercase tracking-[0.18em] text-white/40"
-                >
-                  Your Name
-                </label>
-
-                <input
-                  id="name"
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInput}
-                  placeholder="Enter your name"
-                  required
-                  className="w-full border-b border-white/15 bg-transparent px-0 py-3 text-base text-white outline-none placeholder:text-white/25 transition-colors duration-300 focus:border-rose-400"
-                />
-              </div>
-
-              {/* Email */}
-              <div className="mb-7">
-                <label
-                  htmlFor="email"
-                  className="mb-3 block text-xs font-medium uppercase tracking-[0.18em] text-white/40"
-                >
-                  Email Address
-                </label>
-
-                <input
-                  id="email"
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInput}
-                  placeholder="you@example.com"
-                  required
-                  className="w-full border-b border-white/15 bg-transparent px-0 py-3 text-base text-white outline-none placeholder:text-white/25 transition-colors duration-300 focus:border-rose-400"
-                />
-              </div>
-
-              {/* Message */}
-              <div className="mb-8">
-                <label
-                  htmlFor="message"
-                  className="mb-3 block text-xs font-medium uppercase tracking-[0.18em] text-white/40"
-                >
-                  Message
-                </label>
-
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleInput}
-                  placeholder="Tell me about your project..."
-                  required
-                  rows="5"
-                  className="w-full resize-none border-b border-white/15 bg-transparent px-0 py-3 text-base text-white outline-none placeholder:text-white/25 transition-colors duration-300 focus:border-rose-400"
-                />
-              </div>
-
-              {/* Status */}
-              {submitted && (
-                <div
-                  className={`mb-5 flex items-center gap-3 rounded-xl border px-4 py-3 text-sm transition-all duration-300 ${
-                    submitted === "success"
-                      ? "border-emerald-400/20 bg-emerald-400/10 text-emerald-400"
-                      : "border-rose-400/20 bg-rose-400/10 text-rose-400"
-                  }`}
-                >
-                  <span
-                    className={`flex h-6 w-6 items-center justify-center rounded-full border ${
-                      submitted === "success"
-                        ? "border-emerald-400/40 bg-emerald-400/15"
-                        : "border-rose-400/40 bg-rose-400/15"
-                    }`}
-                  >
-                    {submitted === "success" ? "✓" : "!"}
-                  </span>
-
-                  <span>
-                    {submitted === "success"
-                      ? "Message sent successfully"
-                      : "Something went wrong. Please try again."}
-                  </span>
-                </div>
-              )}
-
-              {/* Submit */}
-              <button
-                type="submit"
-                disabled={sending}
-                className="group inline-flex w-full items-center justify-center gap-3 rounded-full bg-white px-6 py-4 text-sm font-semibold text-black transition-all duration-300 hover:bg-rose-400 disabled:cursor-not-allowed disabled:opacity-50"
+              <form
+                onSubmit={handleSubmit}
+                className="reveal-right"
               >
-                {sending ? "Sending..." : "Send Message"}
 
-                {!sending && (
-                  <span className="transition-transform duration-300 group-hover:translate-x-1">
-                    ↗
-                  </span>
+                {/* NAME */}
+                <div className="contact-field">
+
+                  <label htmlFor="name">
+                    <span>01</span>
+                    Your name
+                  </label>
+
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    placeholder="John Doe"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                  />
+
+                </div>
+
+                {/* EMAIL */}
+                <div className="contact-field">
+
+                  <label htmlFor="email">
+                    <span>02</span>
+                    Email address
+                  </label>
+
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="john@example.com"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                  />
+
+                </div>
+
+                {/* MESSAGE */}
+                <div className="contact-field">
+
+                  <label htmlFor="message">
+                    <span>03</span>
+                    Tell me about it
+                  </label>
+
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows="5"
+                    placeholder="Tell me a little about your project..."
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                  />
+
+                </div>
+
+                {/* STATUS */}
+                {status === "success" && (
+                  <div className="contact-status contact-status-success">
+                    <span>✓</span>
+                    Thanks — your message has been sent.
+                  </div>
                 )}
-              </button>
 
-            </form>
+                {status === "error" && (
+                  <div className="contact-status contact-status-error">
+                    Something went wrong. Please try again or email me
+                    directly.
+                  </div>
+                )}
+
+                {/* SUBMIT */}
+                <div className="mt-8 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+
+                  <div className="contact-response">
+                    <span className="contact-response-label">
+                      USUALLY REPLY WITHIN
+                    </span>
+
+                    <span className="contact-response-time">
+                      12–24 HOURS.
+                    </span>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={status === "sending"}
+                    className="contact-submit magnetic group"
+                  >
+                    <span>
+                      {status === "sending"
+                        ? "Sending..."
+                        : "Send message"}
+                    </span>
+
+                    <span className="contact-submit-arrow">
+                      ↗
+                    </span>
+                  </button>
+
+                </div>
+
+              </form>
+
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      {/* <footer className="border-t border-white/[0.08] bg-[#0b0b0b] px-5 py-8 text-white sm:px-10 lg:px-16">
+
+        <div className="mx-auto max-w-7xl">
+
+          <div className="flex flex-col justify-between gap-8 sm:flex-row sm:items-end">
+
+            <div>
+
+              <a
+                href="#home"
+                className="text-xl font-semibold tracking-[-0.05em]"
+              >
+                sahil<span className="text-rose-500">.</span>dev
+              </a>
+
+              <p className="mt-3 text-[8px] uppercase tracking-[0.25em] text-white/20">
+                Frontend Developer
+              </p>
+
+            </div>
+
+            <div className="flex flex-col gap-3 sm:items-end">
+
+              <p className="text-[8px] uppercase tracking-[0.25em] text-white/20">
+                Ahmedabad / India
+              </p>
+
+              <p className="text-[8px] uppercase tracking-[0.25em] text-white/20">
+                © 2026 Sahil Darji
+              </p>
+
+            </div>
+
           </div>
 
         </div>
 
-        {/* Footer */}
-        <div className="mt-16 flex flex-col justify-between gap-5 border-t border-white/10 pt-7 text-xs text-white/30 sm:flex-row">
-          <p>
-            © {new Date().getFullYear()} Sahil Darji. All rights reserved.
-          </p>
-        </div>
-
-      </div>
-    </section>
+      </footer> */}
+    </>
   );
 };
 

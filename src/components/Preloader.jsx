@@ -1,101 +1,69 @@
 import { useEffect, useState } from "react";
 
-const roles = [
-  {
-    text: "Building Digital Products",
-    color: "#fb7185",
-  },
-  {
-    text: "Developing Web Applications",
-    color: "#61dafb",
-  },
-  {
-    text: "Creating Business Solutions",
-    color: "#dd0031",
-  },
-  {
-    text: "Building Scalable Software",
-    color: "#a78bfa",
-  },
-];
-
 const Preloader = () => {
-  const [loading, setLoading] = useState(true);
-  const [roleIndex, setRoleIndex] = useState(0);
+  const [exit, setExit] = useState(false);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    const loadingTimer = setTimeout(() => {
-      setLoading(false);
-    }, 2300);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
 
-    return () => clearTimeout(loadingTimer);
+    const exitTimer = setTimeout(() => {
+      setExit(true);
+    }, 1900);
+
+    const hideTimer = setTimeout(() => {
+      setVisible(false);
+      document.body.style.overflow = previousOverflow;
+    }, 2700);
+
+    return () => {
+      clearTimeout(exitTimer);
+      clearTimeout(hideTimer);
+      document.body.style.overflow = previousOverflow;
+    };
   }, []);
 
-  useEffect(() => {
-    if (!loading) return;
-
-    const roleTimer = setInterval(() => {
-      setRoleIndex((prev) => (prev + 1) % roles.length);
-    }, 500);
-
-    return () => clearInterval(roleTimer);
-  }, [loading]);
-
-  if (!loading) {
-    return null;
-  }
-
-  const currentRole = roles[roleIndex];
+  if (!visible) return null;
 
   return (
-    <div className="fixed inset-0 z-[99999] flex items-center justify-center overflow-hidden bg-[#080808] text-white">
-      
-      {/* Background glow */}
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-rose-500/[0.06] blur-[120px]" />
-
-      <div className="relative text-center">
-
-        {/* Small label */}
-        <p className="text-[10px] uppercase tracking-[0.45em] text-white/30 sm:text-xs">
-          Portfolio
-        </p>
-
-        {/* Brand */}
-        <h1 className="mt-5 text-5xl font-semibold tracking-[-0.06em] sm:text-6xl">
-          Sahil
-          <span className="text-rose-500">.</span>
-          <span className="mt-5 text-5xl font-semibold tracking-[-0.06em] sm:text-6xl">dev</span>
-        </h1>
-
-        {/* Name */}
-        <p className="mt-5 text-sm tracking-[0.18em] text-white/60 sm:text-base">
-          Sahil Darji
-        </p>
-
-        {/* Developer role */}
-        <div className="mt-5 h-6">
-          <p
-            key={currentRole.text}
-            className="text-xs font-medium uppercase tracking-[0.22em] transition-all duration-300 sm:text-sm"
-            style={{
-              color: currentRole.color,
-            }}
-          >
-            {currentRole.text}
-          </p>
-        </div>
-
-        {/* Loading line */}
-        <div className="mx-auto mt-8 h-[2px] w-32 overflow-hidden rounded-full bg-white/10 sm:w-40">
-          <div className="preloader-line h-full w-full origin-left rounded-full bg-rose-500" />
-        </div>
-
-        {/* Loading text */}
-        <p className="mt-4 text-[9px] uppercase tracking-[0.35em] text-white/20">
-          Loading experience
-        </p>
-
+    <div className={`premium-preloader ${exit ? "is-exiting" : ""}`}>
+      {/* Top metadata */}
+      <div className="preloader-meta preloader-meta-left">
+        <span>SAHIL.DEV</span>
       </div>
+
+      <div className="preloader-meta preloader-meta-right">
+        <span>01 / 01</span>
+      </div>
+
+      {/* Vertical line */}
+      <div className="preloader-line-vertical" />
+
+      {/* Main typography */}
+      <div className="preloader-center">
+        <div className="preloader-name">
+          <span className="name-sahil">SAHIL</span>
+          <span className="name-dot">.</span>
+          <span className="name-dev">DEV</span>
+        </div>
+
+        <div className="preloader-subtitle">
+          SOFTWARE DEVELOPER
+        </div>
+      </div>
+
+      {/* Bottom metadata */}
+      <div className="preloader-bottom-left">
+        <span>FRONTEND DEVELOPER</span>
+      </div>
+
+      <div className="preloader-bottom-right">
+        <span>AHMEDABAD / INDIA</span>
+      </div>
+
+      {/* Reveal layer */}
+      <div className="preloader-reveal" />
     </div>
   );
 };

@@ -1,167 +1,329 @@
-import React from "react";
+import { useState } from "react";
 
 const projects = [
+  // =========================================================
+  // ADD YOUR REAL PROJECTS HERE
+  // =========================================================
   {
     number: "01",
-    title: "Amazon Clone",
-    category: "E-Commerce",
+    title: "Project One",
+    category: "Web Application",
     description:
-      "A modern e-commerce interface inspired by Amazon with responsive layouts and interactive shopping experiences.",
-    image: "/amazonclone.png",
-    link: "https://amazonclone12x.netlify.app/",
+      "A modern web application focused on creating a clean, intuitive and reliable digital experience.",
+    technologies: ["React", "JavaScript", "Tailwind CSS"],
+    liveUrl: "",
+    githubUrl: "",
+    status: "Coming Soon",
   },
   {
     number: "02",
-    title: "Form Validation",
-    category: "Frontend Development",
+    title: "Project Two",
+    category: "Business Solution",
     description:
-      "A clean and interactive form experience with real-time validation and user-friendly feedback.",
-    image: "/formvalidation.jpg",
-    link: "https://formvalidationx2.netlify.app/",
+      "A business-focused digital product designed to simplify workflows and create a better user experience.",
+    technologies: ["Angular", "TypeScript", "REST API"],
+    liveUrl: "",
+    githubUrl: "",
+    status: "Coming Soon",
   },
   {
     number: "03",
-    title: "Text To Speech",
-    category: "JavaScript",
+    title: "Project Three",
+    category: "Creative Website",
     description:
-      "A browser-based text-to-speech application focused on accessibility and a simple interactive experience.",
-    image: "/text-to-speech.jpeg",
-    link: "https://text-to-speech-converterx2.netlify.app/",
+      "A visually focused website combining thoughtful design, responsive development and smooth interactions.",
+    technologies: ["React", "JavaScript", "Responsive UI"],
+    liveUrl: "",
+    githubUrl: "",
+    status: "Coming Soon",
   },
-
-  // Add more projects here
-  // {
-  //   number: "04",
-  //   title: "Your Project",
-  //   category: "Web Application",
-  //   description: "Your project description.",
-  //   image: "/your-image.png",
-  //   link: "https://your-project-link.com/",
-  // },
 ];
 
+const ProjectVisual = ({ project, active }) => {
+  return (
+    <div
+      className={`project-visual relative overflow-hidden rounded-[1.75rem] border border-white/[0.08] bg-[#111] transition-all duration-700 ${
+        active ? "project-visual-active" : ""
+      }`}
+    >
+      {/* BACKGROUND GRID */}
+      <div className="project-visual-grid absolute inset-0" />
+
+      {/* AMBIENT LIGHT */}
+      <div className="project-visual-glow absolute left-1/2 top-1/2 h-[60%] w-[60%] -translate-x-1/2 -translate-y-1/2 rounded-full" />
+
+      {/* MOCK PROJECT WINDOW */}
+      <div className="absolute inset-[8%] overflow-hidden rounded-2xl border border-white/[0.1] bg-[#0d0d0d] shadow-2xl transition-transform duration-700">
+
+        {/* TOP BAR */}
+        <div className="flex h-9 items-center justify-between border-b border-white/[0.08] px-4">
+
+          <div className="flex gap-1.5">
+            <span className="h-1.5 w-1.5 rounded-full bg-white/15" />
+            <span className="h-1.5 w-1.5 rounded-full bg-white/15" />
+            <span className="h-1.5 w-1.5 rounded-full bg-white/15" />
+          </div>
+
+          <span className="text-[6px] uppercase tracking-[0.25em] text-white/20">
+            {project.category}
+          </span>
+
+        </div>
+
+        {/* CONTENT */}
+        <div className="flex h-[calc(100%-2.25rem)] flex-col justify-between p-5 sm:p-7">
+
+          <div>
+
+            <p className="text-[7px] uppercase tracking-[0.3em] text-rose-400/70">
+              Selected Work
+            </p>
+
+            <h3 className="mt-3 max-w-[80%] text-2xl font-semibold tracking-[-0.05em] text-white/90 sm:text-4xl">
+              {project.title}
+              <span className="text-rose-500">.</span>
+            </h3>
+
+            <div className="mt-5 h-px w-1/2 bg-white/[0.08]" />
+
+          </div>
+
+          <div className="grid grid-cols-3 gap-2">
+
+            <div className="h-14 rounded-lg border border-white/[0.06] bg-white/[0.025]" />
+            <div className="h-14 rounded-lg border border-white/[0.06] bg-white/[0.025]" />
+            <div className="h-14 rounded-lg border border-white/[0.06] bg-white/[0.025]" />
+
+          </div>
+
+        </div>
+
+      </div>
+
+      {/* NUMBER */}
+      <span className="absolute bottom-5 left-5 text-[8px] uppercase tracking-[0.25em] text-white/20">
+        {project.number} / 03
+      </span>
+
+      {/* STATUS */}
+      <span className="absolute right-5 top-5 rounded-full border border-white/[0.08] bg-black/30 px-3 py-1.5 text-[7px] uppercase tracking-[0.2em] text-white/30 backdrop-blur-md">
+        {project.status}
+      </span>
+    </div>
+  );
+};
+
 const Project = () => {
+  const [activeProject, setActiveProject] = useState(0);
+
+  const project = projects[activeProject];
+
   return (
     <section
       id="work"
-      className="relative overflow-hidden bg-[#0b0b0b] px-6 py-28 sm:px-10 lg:px-16"
+      className="relative overflow-hidden bg-[#0b0b0b] px-5 py-24 text-white sm:px-10 sm:py-32 lg:px-16 lg:py-40"
     >
       <div className="mx-auto max-w-7xl">
-        {/* Section Header */}
-        <div className="mb-16 flex items-end justify-between border-b border-white/10 pb-6">
+
+        {/* HEADER */}
+        <div className="reveal mb-14 flex flex-col justify-between gap-8 border-b border-white/[0.08] pb-8 sm:mb-20 lg:flex-row lg:items-end">
+
           <div>
-            <p className="mb-3 text-xs font-medium uppercase tracking-[0.3em] text-rose-400">
-              02 — Selected Work
+
+            <p className="text-[9px] font-medium uppercase tracking-[0.35em] text-rose-400 sm:text-[10px]">
+              04 — Selected Work
             </p>
 
-            <h2 className="font-display text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-7xl">
-              Work<span className="text-rose-400">.</span>
+            <h2 className="mt-3 text-5xl font-semibold tracking-[-0.06em] sm:text-6xl lg:text-8xl">
+              Work<span className="text-rose-500">.</span>
             </h2>
+
           </div>
 
-          <span className="hidden text-sm text-white/40 sm:block">
-            Selected projects
-          </span>
+          <p className="max-w-md text-sm leading-6 text-white/35 lg:pb-2">
+            A selection of digital experiences, applications and products
+            built with purpose.
+          </p>
+
         </div>
 
-        {/* Project Grid */}
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {projects.map((project, index) => (
-            <article
-              key={project.number}
-              className="reveal group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.025] transition-all duration-500 hover:-translate-y-2 hover:border-rose-400/30 hover:bg-white/[0.045]"
-              style={{
-                transitionDelay: `${index * 80}ms`,
-              }}
-            >
-              {/* Image */}
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative block overflow-hidden"
-              >
-                <div className="aspect-[16/10] overflow-hidden bg-white/5">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-105"
-                  />
-                </div>
+        {/* FEATURED PROJECT */}
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
 
-                {/* Image Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-60 transition duration-500 group-hover:opacity-80" />
+          {/* VISUAL */}
+          <div className="reveal-scale lg:col-span-7">
 
-                {/* Project Number */}
-                <span className="absolute left-4 top-4 rounded-full border border-white/15 bg-black/50 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-md">
+            <ProjectVisual
+              project={project}
+              active
+            />
+
+          </div>
+
+          {/* INFORMATION */}
+          <div className="flex flex-col justify-between lg:col-span-5">
+
+            <div className="reveal-right">
+
+              <div className="flex items-center justify-between">
+
+                <span className="text-[9px] uppercase tracking-[0.3em] text-white/20">
+                  Featured project
+                </span>
+
+                <span className="text-[9px] tracking-[0.25em] text-rose-400">
                   {project.number}
                 </span>
 
-                {/* View Button */}
-                <span className="absolute bottom-4 right-4 flex h-10 w-10 translate-y-3 items-center justify-center rounded-full border border-white/20 bg-black/50 text-white opacity-0 backdrop-blur-md transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-                  ↗
-                </span>
-              </a>
+              </div>
 
-              {/* Content */}
-              <div className="flex flex-1 flex-col p-6">
-                {/* Category */}
-                <div className="mb-4 flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-rose-400" />
+              <p className="mt-10 text-[9px] uppercase tracking-[0.3em] text-rose-400">
+                {project.category}
+              </p>
 
-                  <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-rose-400">
-                    {project.category}
-                  </span>
-                </div>
+              <h3 className="mt-4 text-4xl font-semibold tracking-[-0.055em] sm:text-5xl lg:text-6xl">
+                {project.title}
+                <span className="text-rose-500">.</span>
+              </h3>
 
-                {/* Title */}
-                <h3 className="text-2xl font-semibold tracking-tight text-white transition-colors duration-300 group-hover:text-rose-300">
-                  {project.title}
-                </h3>
+              <p className="mt-7 max-w-lg text-sm leading-7 text-white/40 sm:text-base sm:leading-8">
+                {project.description}
+              </p>
 
-                {/* Description */}
-                <p className="mt-3 flex-1 text-sm leading-7 text-white/50">
-                  {project.description}
+              {/* TECHNOLOGIES */}
+              <div className="mt-9">
+
+                <p className="mb-4 text-[8px] uppercase tracking-[0.3em] text-white/20">
+                  Built with
                 </p>
 
-                {/* Bottom Link */}
+                <div className="flex flex-wrap gap-2">
+
+                  {project.technologies.map((technology) => (
+                    <span
+                      key={technology}
+                      className="rounded-full border border-white/[0.1] px-3 py-2 text-[8px] uppercase tracking-[0.15em] text-white/35"
+                    >
+                      {technology}
+                    </span>
+                  ))}
+
+                </div>
+
+              </div>
+
+            </div>
+
+            {/* LINKS */}
+            <div className="reveal mt-12 flex flex-wrap gap-3 lg:mt-16">
+
+              {project.liveUrl ? (
                 <a
-                  href={project.link}
+                  href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-7 inline-flex w-fit items-center gap-2 border-b border-white/20 pb-1 text-xs font-medium uppercase tracking-[0.15em] text-white/70 transition-all duration-300 hover:border-rose-400 hover:text-rose-400"
+                  className="group flex items-center gap-4 rounded-full bg-white px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.15em] text-black transition-all duration-300 hover:bg-rose-500 hover:text-white"
                 >
-                  View Project
-                  <span className="transition-transform duration-300 group-hover:translate-x-1">
+                  Live Project
+                  <span className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
                     ↗
                   </span>
                 </a>
-              </div>
-            </article>
-          ))}
+              ) : (
+                <span className="flex items-center gap-4 rounded-full border border-white/[0.1] px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.15em] text-white/25">
+                  Coming Soon
+                </span>
+              )}
+
+              {project.githubUrl && (
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-4 rounded-full border border-white/[0.12] px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.15em] text-white/55 transition-all duration-300 hover:border-white/30 hover:text-white"
+                >
+                  GitHub
+                  <span className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
+                    ↗
+                  </span>
+                </a>
+              )}
+
+            </div>
+
+          </div>
+
         </div>
 
-        {/* Bottom CTA */}
-        <div className="reveal mt-16 flex flex-col items-start justify-between gap-6 border-t border-white/10 pt-8 sm:flex-row sm:items-center">
-          <p className="max-w-md text-sm leading-6 text-white/40">
-            More projects and experiments are coming soon. I’m constantly
-            building, learning and turning ideas into digital products.
-          </p>
+        {/* PROJECT SELECTOR */}
+        <div className="mt-20 border-t border-white/[0.08] sm:mt-28">
 
-          <a
-            href="#contact"
-            className="group inline-flex items-center gap-3 text-sm font-medium text-white"
-          >
-            Start a project
-            <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 transition-all duration-300 group-hover:border-rose-400 group-hover:bg-rose-400 group-hover:text-black">
-              ↗
-            </span>
-          </a>
+          {projects.map((item, index) => {
+            const active = activeProject === index;
+
+            return (
+              <button
+                key={item.number}
+                type="button"
+                onClick={() => setActiveProject(index)}
+                onMouseEnter={() => setActiveProject(index)}
+                className={`group flex w-full items-center gap-5 border-b border-white/[0.08] py-6 text-left transition-all duration-500 sm:py-8 ${
+                  active
+                    ? "pl-2"
+                    : "text-white/30 hover:pl-2 hover:text-white"
+                }`}
+              >
+
+                <span
+                  className={`text-[9px] tracking-[0.25em] ${
+                    active ? "text-rose-400" : "text-white/20"
+                  }`}
+                >
+                  {item.number}
+                </span>
+
+                <span
+                  className={`flex-1 text-lg font-medium tracking-[-0.02em] sm:text-2xl ${
+                    active ? "text-white" : ""
+                  }`}
+                >
+                  {item.title}
+                </span>
+
+                <span className="hidden text-[8px] uppercase tracking-[0.25em] text-white/20 sm:block">
+                  {item.category}
+                </span>
+
+                <span
+                  className={`text-lg transition-all duration-300 ${
+                    active
+                      ? "translate-x-0 text-rose-500"
+                      : "-translate-x-2 text-white/0 group-hover:translate-x-0 group-hover:text-white/40"
+                  }`}
+                >
+                  ↗
+                </span>
+
+              </button>
+            );
+          })}
+
         </div>
+
+        {/* FOOTNOTE */}
+        <div className="reveal mt-6 flex items-center justify-between">
+
+          <span className="text-[8px] uppercase tracking-[0.25em] text-white/15">
+            More projects in progress
+          </span>
+
+          <span className="text-[8px] uppercase tracking-[0.25em] text-white/15">
+            2026
+          </span>
+
+        </div>
+
       </div>
-
-      {/* Background Glow */}
-      <div className="pointer-events-none absolute -left-40 bottom-0 h-96 w-96 rounded-full bg-rose-500/5 blur-3xl" />
     </section>
   );
 };

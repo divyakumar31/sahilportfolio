@@ -4,180 +4,239 @@ const services = [
   {
     number: "01",
     title: "Web Development",
+    short: "Websites that feel as good as they look.",
     description:
       "High-performance websites designed around your brand, business goals and users. From landing pages to complete business websites.",
-    technologies: [
-      "React",
-      "Angular",
-      "JavaScript",
-      "Tailwind CSS",
-    ],
+    technologies: ["React", "Angular", "JavaScript", "Tailwind CSS"],
   },
   {
     number: "02",
     title: "Web Applications",
+    short: "Interfaces built for real-world functionality.",
     description:
       "Modern web applications with scalable interfaces, interactive dashboards, forms, authentication and business-focused functionality.",
-    technologies: [
-      "React",
-      "Angular",
-      "TypeScript",
-      "REST APIs",
-    ],
+    technologies: ["React", "Angular", "TypeScript", "REST APIs"],
   },
   {
     number: "03",
     title: "UI / UX Development",
+    short: "Turning complex ideas into simple experiences.",
     description:
-      "Clean and intuitive interfaces that turn complex ideas into simple, engaging digital experiences.",
-    technologies: [
-      "Figma",
-      "UI Design",
-      "Responsive Design",
-      "Prototyping",
-    ],
+      "Clean and intuitive interfaces that turn complex ideas into simple, engaging digital experiences across desktop, tablet and mobile.",
+    technologies: ["UI Design", "Responsive Design", "Figma", "Prototyping"],
   },
   {
     number: "04",
     title: "Website Redesign",
+    short: "Giving existing products a modern direction.",
     description:
-      "Transforming outdated websites into modern, responsive and conversion-focused digital experiences.",
-    technologies: [
-      "Modern UI",
-      "Responsive",
-      "Performance",
-      "Accessibility",
-    ],
+      "Transforming outdated websites into modern, responsive and conversion-focused digital experiences with better usability and visual hierarchy.",
+    technologies: ["Modern UI", "Responsive", "Performance", "Accessibility"],
   },
 ];
 
-function Services() {
-  const [activeService, setActiveService] = useState(0);
+const Services = () => {
+  const [activeService, setActiveService] = useState(null);
+
+  const handleServiceClick = (index) => {
+    setActiveService((current) =>
+      current === index ? null : index
+    );
+  };
 
   return (
     <section
       id="services"
-      className="relative overflow-hidden bg-[#0b0b0b] px-6 py-24 text-white md:px-10 lg:px-16 lg:py-32"
+      className="relative overflow-hidden bg-[#0b0b0b] px-5 py-24 text-white sm:px-10 sm:py-32 lg:px-16 lg:py-40"
     >
-      <div className="pointer-events-none absolute left-[-150px] top-[30%] h-[350px] w-[350px] rounded-full bg-rose-500/5 blur-[120px]" />
-
       <div className="mx-auto max-w-7xl">
 
-        {/* Header */}
-        <div className="reveal mb-20 flex flex-col justify-between gap-8 md:flex-row md:items-end">
+        {/* HEADER */}
+        <div className="reveal mb-14 flex flex-col justify-between gap-8 border-b border-white/[0.08] pb-8 sm:mb-20 lg:flex-row lg:items-end">
+
           <div>
-            <p className="mb-5 text-sm uppercase tracking-[0.35em] text-white/40">
-              What I Do
+            <p className="text-[9px] font-medium uppercase tracking-[0.35em] text-rose-400 sm:text-[10px]">
+              03 — Services
             </p>
 
-            <h2 className="text-5xl font-semibold tracking-tight md:text-7xl lg:text-8xl">
-              Services<span className="text-rose-500">.</span>
+            <h2 className="mt-3 text-5xl font-semibold tracking-[-0.06em] sm:text-6xl lg:text-8xl">
+              What I do<span className="text-rose-500">.</span>
             </h2>
           </div>
 
-          <span className="text-sm uppercase tracking-[0.3em] text-white/30">
-            02
-          </span>
+          <p className="max-w-md text-sm leading-6 text-white/35 lg:pb-2">
+            From the first idea to the final interface, I build digital
+            experiences that are useful, scalable and thoughtfully crafted.
+          </p>
+
         </div>
 
-        {/* Services */}
-        <div className="border-t border-white/10">
+        {/* SERVICES LIST */}
+        <div className="border-t border-white/[0.08]">
+
           {services.map((service, index) => {
             const isActive = activeService === index;
 
             return (
               <div
                 key={service.number}
-                className={`reveal stagger-${Math.min(index + 1, 5)} border-b border-white/10`}
+                onMouseEnter={() => setActiveService(index)}
+                className={`service-row group border-b border-white/[0.08] transition-all duration-500 ${
+                  isActive
+                    ? "service-row-active"
+                    : "service-row-inactive"
+                }`}
               >
+
+                {/* MAIN ROW */}
                 <button
                   type="button"
-                  onClick={() =>
-                    setActiveService(isActive ? -1 : index)
-                  }
-                  className="group flex w-full items-center gap-5 py-8 text-left md:py-10"
+                  onClick={() => handleServiceClick(index)}
+                  className="flex w-full items-center gap-4 py-7 text-left sm:gap-6 sm:py-9 lg:py-10"
+                  aria-expanded={isActive}
                 >
-                  <span className="w-10 text-sm text-white/30 md:w-16">
+
+                  {/* NUMBER */}
+                  <span
+                    className={`w-8 shrink-0 text-[9px] tracking-[0.25em] transition-colors duration-300 sm:w-12 ${
+                      isActive
+                        ? "text-rose-400"
+                        : "text-white/20"
+                    }`}
+                  >
                     {service.number}
                   </span>
 
-                  <span
-                    className={`flex-1 text-2xl font-medium transition md:text-4xl ${
-                      isActive
-                        ? "text-white"
-                        : "text-white/60 group-hover:text-white"
-                    }`}
-                  >
-                    {service.title}
-                  </span>
+                  {/* TITLE */}
+                  <div className="min-w-0 flex-1">
 
+                    <h3
+                      className={`text-[clamp(1.7rem,4vw,4.2rem)] font-medium leading-none tracking-[-0.055em] transition-all duration-500 ${
+                        isActive
+                          ? "translate-x-1 text-white"
+                          : "text-white/35"
+                      }`}
+                    >
+                      {service.title}
+                    </h3>
+
+                    {/* SHORT DESCRIPTION */}
+                    <p
+                      className={`mt-3 text-xs transition-all duration-500 sm:text-sm ${
+                        isActive
+                          ? "translate-x-1 text-white/35"
+                          : "text-white/0"
+                      }`}
+                    >
+                      {service.short}
+                    </p>
+
+                  </div>
+
+                  {/* ARROW */}
                   <span
-                    className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/20 text-xl transition duration-500 md:h-14 md:w-14 ${
+                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border transition-all duration-500 sm:h-12 sm:w-12 ${
                       isActive
                         ? "rotate-45 border-rose-500 bg-rose-500 text-white"
-                        : "group-hover:border-white"
+                        : "border-white/10 text-white/20 group-hover:border-white/30 group-hover:text-white/50"
                     }`}
                   >
                     ↗
                   </span>
+
                 </button>
 
+                {/* EXPANDED CONTENT */}
                 <div
-                  className={`grid transition-all duration-500 ${
+                  className={`grid transition-[grid-template-rows,opacity] duration-500 ${
                     isActive
-                      ? "grid-rows-[1fr] pb-10"
-                      : "grid-rows-[0fr]"
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
                   }`}
                 >
+
                   <div className="overflow-hidden">
-                    <div className="grid gap-8 pl-[3.75rem] md:grid-cols-[1fr_auto] md:pl-16">
 
-                      <p className="max-w-2xl text-base leading-8 text-white/40 md:text-lg">
-                        {service.description}
-                      </p>
+                    <div className="grid gap-8 pb-9 pl-12 sm:pl-[4.5rem] lg:grid-cols-12 lg:gap-12 lg:pb-12 lg:pl-[4.5rem]">
 
-                      <div className="flex flex-wrap content-start gap-2 md:max-w-sm md:justify-end">
-                        {service.technologies.map((technology) => (
-                          <span
-                            key={technology}
-                            className="rounded-full border border-white/10 px-4 py-2 text-xs uppercase tracking-wider text-white/40"
-                          >
-                            {technology}
-                          </span>
-                        ))}
+                      {/* DESCRIPTION */}
+                      <div className="lg:col-span-7">
+
+                        <p className="max-w-2xl text-sm leading-7 text-white/40 sm:text-base sm:leading-8">
+                          {service.description}
+                        </p>
+
+                      </div>
+
+                      {/* TECHNOLOGIES */}
+                      <div className="lg:col-span-5">
+
+                        <p className="mb-4 text-[8px] uppercase tracking-[0.3em] text-white/20">
+                          Technologies
+                        </p>
+
+                        <div className="flex flex-wrap gap-2">
+
+                          {service.technologies.map((technology) => (
+                            <span
+                              key={technology}
+                              className="rounded-full border border-white/[0.1] px-3.5 py-2 text-[9px] uppercase tracking-[0.15em] text-white/35 transition-colors duration-300 hover:border-rose-500/40 hover:text-white"
+                            >
+                              {technology}
+                            </span>
+                          ))}
+
+                        </div>
+
                       </div>
 
                     </div>
+
                   </div>
+
                 </div>
+
               </div>
             );
           })}
+
         </div>
 
-        {/* Bottom CTA */}
-        <div className="reveal mt-24 flex flex-col justify-between gap-8 border-t border-white/10 pt-10 md:flex-row md:items-end">
-          <div>
-            <p className="text-sm uppercase tracking-[0.25em] text-white/30">
-              From idea to digital product
-            </p>
+        {/* BOTTOM CTA */}
+        <div className="reveal mt-20 border-t border-white/[0.08] pt-8 sm:mt-28 sm:pt-10">
 
-            <h3 className="mt-4 max-w-2xl text-3xl font-medium md:text-5xl">
-              Let's build something meaningful.
-            </h3>
+          <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+
+            <div>
+
+              <p className="text-[9px] uppercase tracking-[0.3em] text-white/20">
+                Have something in mind?
+              </p>
+
+              <h3 className="mt-4 max-w-3xl text-3xl font-medium leading-tight tracking-[-0.04em] sm:text-4xl lg:text-5xl">
+                Let's turn your idea into something people remember.
+              </h3>
+
+            </div>
+
+            <a
+              href="#contact"
+              className="magnetic group flex w-fit shrink-0 items-center gap-5 rounded-full bg-white px-6 py-3.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-black transition-all duration-300 hover:bg-rose-500 hover:text-white sm:px-7 sm:py-4"
+            >
+              <span>Let's work together</span>
+
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-black/10 text-base transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
+                ↗
+              </span>
+            </a>
+
           </div>
 
-          <a
-            href="#contact"
-            className="magnetic inline-flex w-fit items-center gap-4 rounded-full border border-white/20 px-7 py-4 text-sm uppercase tracking-[0.15em] transition hover:bg-white hover:text-black"
-          >
-            Let's Work Together
-            <span>↗</span>
-          </a>
         </div>
+
       </div>
     </section>
   );
-}
+};
 
 export default Services;

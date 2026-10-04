@@ -14,12 +14,13 @@ const useReveal = () => {
           if (!entry.isIntersecting) return;
 
           entry.target.classList.add("reveal-show");
+
           observer.unobserve(entry.target);
         });
       },
       {
         threshold: 0.12,
-        rootMargin: "0px 0px -60px 0px",
+        rootMargin: "0px 0px -70px 0px",
       }
     );
 
